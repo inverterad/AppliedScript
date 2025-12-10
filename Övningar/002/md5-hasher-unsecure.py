@@ -57,10 +57,10 @@ def main():
     and displays them alongside their corresponding MD5 hashes.
     """
     # Programbeskrivning för användaren
-    print("-" * 60)
-    print("Password and MD5 Hash Generator (Very UNsecure version)")
-    print("-" * 60)
-    print(f"Skapar {NO_PASS} st randomiserade {PWD_LGT}-siffriga lösenord och deras MD5 hashes:\n")
+#    print("-" * 60)
+#    print("Password and MD5 Hash Generator (Very UNsecure version)")
+#    print("-" * 60)
+#    print(f"Skapar {NO_PASS} st randomiserade {PWD_LGT}-siffriga lösenord och deras MD5 hashes:\n")
     
     # Generera och visa lösenorden med deras hash-värden
     for i in range(NO_PASS):
@@ -71,21 +71,22 @@ def main():
         hash_value = md5_hash(password)
         
         # Formatera och visa resultatet med sekventiell numrering
-        print(f"{i+1:2d}. Lösenord: {password}  →  MD5: {hash_value}")
+#        print(f"{i+1:2d}. Lösenord: {password}  →  MD5: {hash_value}")
+        print(hash_value)
     
     # Säkerhetsvarning
-    print("\n" + "=" * 50)
-    print("⚠️ Extra Viktig säkerhetsinformation:")
-    print("-" * 50)
-    print("MD5 är inte längre säkert för kryptografiskt bruk.")
-    print("Det används här ENDAST i utbildningssyfte.")
-    print("För riktiga system bör man använda moderna algoritmer som SHA-256")
-    print("eller lösenordshashfunktioner som bcrypt eller Argon2.")
-    print("=" * 50)
+#    print("\n" + "=" * 50)
+#    print("⚠️ Extra Viktig säkerhetsinformation:")
+#    print("-" * 50)
+#    print("MD5 är inte längre säkert för kryptografiskt bruk.")
+#    print("Det används här ENDAST i utbildningssyfte.")
+#    print("För riktiga system bör man använda moderna algoritmer som SHA-256")
+#    print("eller lösenordshashfunktioner som bcrypt eller Argon2.")
+#    print("=" * 50)
 
 # Fasta konstanter för programmet (Går att ändra på efter behov)
-PWD_LGT = 3
-NO_PASS = 3
+PWD_LGT = 9
+NO_PASS = 10
 
 # Standard Python idiom för att kontrollera om skriptet körs direkt!
 if __name__ == "__main__":
