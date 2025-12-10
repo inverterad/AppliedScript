@@ -1,0 +1,45 @@
+Wed Dec 10 10:21:25 AM CET 2025
+Välkommen till mitt RECON script för att kontrollera en Linux-miljö
+
+=== SYSTEMINFO ===
+Linux kali 6.16.8+kali-amd64 #1 SMP PREEMPT_DYNAMIC Kali 6.16.8-1kali1 (2025-09-24) x86_64 GNU/Linux
+
+=== AKTUELL ANVÄNDARE ===
+kali
+
+=== ANVÄNDARE MED SHELL ===
+root:x:0:0:root:/root:/usr/bin/zsh
+postgres:x:126:130:PostgreSQL administrator:/var/lib/postgresql:/bin/bash
+kali:x:1000:1000::/home/kali:/usr/bin/zsh
+
+=== NÄTVERK ===
+    inet 127.0.0.1/8 scope host lo
+    inet6 ::1/128 scope host noprefixroute 
+    inet 10.0.0.4/24 brd 10.0.0.255 scope global dynamic noprefixroute eth0
+    inet6 fe80::4fc7:c353:9a24:f5f7/64 scope link noprefixroute 
+
+Active Internet connections (w/o servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State      
+udp        0      0 10.0.0.4:bootpc         10.0.0.3:bootps         ESTABLISHED
+
+=== HÅRDVARA ===
+
+CPU(s):                                  2
+Model name:                              AMD Ryzen AI 9 365 w/ Radeon 880M
+
+               total        used        free      shared  buff/cache   available
+Mem:           3.7Gi       861Mi       2.5Gi        10Mi       616Mi       2.9Gi
+Swap:          953Mi          0B       953Mi
+
+Filesystem      Size  Used Avail Use% Mounted on
+udev            1.8G     0  1.8G   0% /dev
+/dev/sda1        79G   20G   55G  27% /
+none            1.0M     0  1.0M   0% /run/credentials/systemd-journald.service
+Delat_med_VM    952G  246G  707G  26% /media/sf_Delat_med_VM
+none            1.0M     0  1.0M   0% /run/credentials/getty@tty1.service
+
+=== PLATS ===
+
+Land:  SWE
+Stad:  Stockholm
+
