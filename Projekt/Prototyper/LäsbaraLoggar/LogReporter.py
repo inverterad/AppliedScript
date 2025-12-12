@@ -10,6 +10,6 @@ import subprocess
 
 # Läs in loggen
 
-raw_ssh_data = subprocess.check_output(["journalctl", "-u", "ssh.service"], text=True)
+raw_ssh_data = subprocess.check_output(["journalctl", "-u", "ssh.service", "--no-pager", "--boot"], text=True)
 
 print(raw_ssh_data)
