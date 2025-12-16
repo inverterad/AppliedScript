@@ -32,9 +32,7 @@ def ssh_extraction():
     if len(ssh_examples) == 0:
         return("No SSH attempts since yesterday.")
     else:
-        print("SSH logins: ")
-        for line in ssh_examples:
-            return(line)
+        return(ssh_examples)
 
 ###
 
@@ -60,6 +58,10 @@ raw_login_data = subprocess.check_output(["journalctl", "_SYSTEMD_UNIT=systemd-l
 raw_su_data = subprocess.check_output(["journalctl", "_COMM=su", "--since", "yesterday", "--no-pager"], text=True)
 
 # print(ssh_extraction())
+senaste_ssh = ssh_extraction()
+
+for line in senaste_ssh:
+    print(line)
 
 # print(ssh_examples)
 # print(ssh_success_count)
