@@ -52,21 +52,35 @@ def ssh_extraction():
     #     return(ssh_examples)
 
 ###
+def sudo_extraction():
 
-# raw_sudo_data = subprocess.check_output(["journalctl", "-t", "sudo", "--since", "yesterday", "--no-pager"], text=True)
+    raw_sudo_data = subprocess.check_output(["journalctl", "-t", "sudo", "--since", "yesterday", "--no-pager"], text=True)
 
-# sudo_examples = []
+    # Använder re-modulen för att få in regex så jag kan hitta mönster.
+    pattern = re.compile(
+        r'^(?P<date>\w{3}\s+\d{1,2})\s+'
+        r'(?P<time>\d{2}:\d{2}:\d{2})\s+'
+        r'\S+\s+sudo\[\d+\]:\s+'
+        r'\w+\s+:\s+'
+        r'TTY=\S+\s+;\s+'
+        r'PWD=(?P<working_directory>\S+)\s+\;\s+'
+        r'USER=(?P<user>\w+)\s+\S+\s+'
+        r'COMMAND=(?P<command>.+)'
+    )
 
-# for line in raw_sudo_data.splitlines():
-#     if "COMMAND=" in line:
-#         sudo_examples.append(line.strip())
+    sudo_examples = []
+    sudo_parsed = []
 
-# if len(sudo_examples) == 0:
-#     print("No sudo usage since yesterday.")
-# else:
-#     print("Sudo usage: ")
-#     for line in sudo_examples:
-#         print(line)
+    for line in raw_sudo_data.splitlines():
+        if "COMMAND=" in line:
+            sudo_examples.append(line.strip())
+
+    for line in sudo_examples:
+        match = pattern.search(line)
+        if match:
+            sudo_parsed.append(match.groupdict())
+
+    return(sudo_parsed)
 
 ###
 
@@ -78,7 +92,9 @@ raw_su_data = subprocess.check_output(["journalctl", "_COMM=su", "--since", "yes
 # for line in ssh_extraction():
 #     print(line)
 
-print(tabulate(ssh_extraction(), headers="keys"))
+# print(tabulate(ssh_extraction(), headers="keys"))
+
+print(tabulate(sudo_extraction(), headers="keys"))
 
 # print(ssh_examples)
 # print(ssh_success_count)
