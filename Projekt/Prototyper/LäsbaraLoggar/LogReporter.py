@@ -53,7 +53,7 @@ def ssh_extraction():
 
 ###
 def sudo_extraction():
-
+    # Använder subprocess för att extrahera sudo-data sedan igår.
     raw_sudo_data = subprocess.check_output(["journalctl", "-t", "sudo", "--since", "yesterday", "--no-pager"], text=True)
 
     # Använder re-modulen för att få in regex så jag kan hitta mönster.
@@ -71,16 +71,22 @@ def sudo_extraction():
     sudo_examples = []
     sudo_parsed = []
 
+    # Spara endast relevanta inlägg.
     for line in raw_sudo_data.splitlines():
         if "COMMAND=" in line:
             sudo_examples.append(line.strip())
 
+    # Fixa dictionaries med pattern från regex.
     for line in sudo_examples:
         match = pattern.search(line)
         if match:
             sudo_parsed.append(match.groupdict())
 
-    return(sudo_parsed)
+    # Om inga inlägg finns så ska man kunna ta emot det, annars levereras dictionaries.
+    if len(sudo_parsed) == 0:
+        return("empty")
+    else:
+        return(sudo_parsed)
 
 ###
 
