@@ -90,7 +90,29 @@ def sudo_extraction():
 
 ###
 
-raw_login_data = subprocess.check_output(["journalctl", "_SYSTEMD_UNIT=systemd-logind.service", "--since", "yesterday", "--no-pager"], text=True)
+def login_data_extraction():
+
+    raw_login_data = subprocess.check_output(["journalctl", "_SYSTEMD_UNIT=systemd-logind.service", "--since", "yesterday", "--no-pager"], text=True)
+
+    # Använder re-modulen för att få in regex så jag kan hitta mönster.
+    pattern_new = re.compile(
+        r'^(?P<date>\w{3}\s+\d{1,2})\s+'
+        r'(?P<time>\d{2}:\d{2}:\d{2})\s+'
+        r'\S+\s+systemd-logind[\d+]:\s+'
+        r'(?P<sessiony>New\s+session)\s+'
+        r'(?P<session_id>\d{1,3})\s+\S+\s+'
+        r'COMMAND=(?P<user>.+)'
+    )
+
+    pattern_removed = re.compile(
+        r'^(?P<date>\w{3}\s+\d{1,2})\s+'
+        r'(?P<time>\d{2}:\d{2}:\d{2})\s+'
+        r'\S+\s+systemd-logind[\d+]:\s+'
+        r'(?P<sessiony>Removed\s+session)\s+'
+        r'(?P<session_id>\d{1,3}).'
+    )
+
+
 
 raw_su_data = subprocess.check_output(["journalctl", "_COMM=su", "--since", "yesterday", "--no-pager"], text=True)
 
@@ -103,7 +125,7 @@ raw_su_data = subprocess.check_output(["journalctl", "_COMM=su", "--since", "yes
 # print(ssh_success_count)
 # print(ssh_failure_count)
 # print(raw_sudo_data)
-# print(raw_login_data)
+print(raw_login_data)
 # print(raw_su_data)
 
 # Skriva till en txt-fil för framtida undersökningar.
