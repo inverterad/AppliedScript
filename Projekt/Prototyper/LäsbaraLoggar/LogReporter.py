@@ -94,13 +94,10 @@ raw_login_data = subprocess.check_output(["journalctl", "_SYSTEMD_UNIT=systemd-l
 
 raw_su_data = subprocess.check_output(["journalctl", "_COMM=su", "--since", "yesterday", "--no-pager"], text=True)
 
-# print(ssh_extraction())
-# for line in ssh_extraction():
-#     print(line)
 
 # print(tabulate(ssh_extraction(), headers="keys"))
-
-print(tabulate(sudo_extraction(), headers="keys"))
+# print()
+# print(tabulate(sudo_extraction(), headers="keys"))
 
 # print(ssh_examples)
 # print(ssh_success_count)
