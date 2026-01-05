@@ -1,18 +1,11 @@
 #!/usr/bin/env python3
 
-#“Human-Readable Security Reports” from Raw Data
-# Many logs are unreadable.
-# Your script could take messy input (e.g., firewall logs, SSH logs) and convert it into:
-# A simple table
-# A daily HTML summary
-# A CSV timeline
-# Real use: SOC analysts and admins depend on small conversion utilities daily.
-
 import subprocess
 import re
 from tabulate import tabulate
 
 def ssh_extraction():
+
     # Läs in SSH-logg med hjälp av biblioteket subprocess, text=True levererar all data i en lång sträng. 
     raw_ssh_data = subprocess.check_output(["journalctl", "-u", "ssh.service", "--no-pager"], text=True)
 
@@ -49,6 +42,7 @@ def ssh_extraction():
 ###
 
 def sudo_extraction():
+
     # Använder subprocess för att extrahera sudo-data sedan igår.
     raw_sudo_data = subprocess.check_output(["journalctl", "-t", "sudo", "--since", "yesterday", "--no-pager"], text=True)
 
@@ -88,6 +82,7 @@ def sudo_extraction():
 
 def login_data_extraction():
 
+    # Använd subprocess för att extrahera login-data genom journalctl sedan igår.
     raw_login_data = subprocess.check_output(["journalctl", "_SYSTEMD_UNIT=systemd-logind.service", "--since", "yesterday", "--no-pager"], text=True)
 
     # Använder re-modulen för att få in regex så jag kan hitta mönster.
@@ -149,6 +144,10 @@ print(tabulate(login_data_extraction(), headers="keys"))
 # print(raw_sudo_data)
 # print(raw_login_data)
 # print(raw_su_data)
+
+# Firewallloggar?
+
+# Nätverksloggar?
 
 # Skriva till en txt-fil för framtida undersökningar.
 
