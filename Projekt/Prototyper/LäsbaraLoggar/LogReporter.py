@@ -46,12 +46,8 @@ def ssh_extraction():
 
     return(ssh_parsed)
 
-    # if len(ssh_examples) == 0:
-    #     return("No SSH attempts since yesterday.")
-    # else:
-    #     return(ssh_examples)
-
 ###
+
 def sudo_extraction():
     # Använder subprocess för att extrahera sudo-data sedan igår.
     raw_sudo_data = subprocess.check_output(["journalctl", "-t", "sudo", "--since", "yesterday", "--no-pager"], text=True)
@@ -96,36 +92,62 @@ def login_data_extraction():
 
     # Använder re-modulen för att få in regex så jag kan hitta mönster.
     pattern_new = re.compile(
-        r'^(?P<date>\w{3}\s+\d{1,2})\s+'
-        r'(?P<time>\d{2}:\d{2}:\d{2})\s+'
-        r'\S+\s+systemd-logind[\d+]:\s+'
-        r'(?P<sessiony>New\s+session)\s+'
-        r'(?P<session_id>\d{1,3})\s+\S+\s+'
-        r'COMMAND=(?P<user>.+)'
+        r"^(?P<date>\w{3}\s+\d{1,2})\s+"
+        r"(?P<time>\d{2}:\d{2}:\d{2})\s+"
+        r"\S+\s+systemd-logind\[\d+\]:\s+"
+        r"(?P<session>New\s+session)\s+"
+        r"'(?P<session_id>[a-zA-Z0-9]+)'\s+\S+\s+\S+\s+"
+        r"'(?P<user>\S+)'\s+with\s+class\s+"
+        r"'(?P<class>\S+)'\s+and\s+type\s+"
+        r"'(?P<interface>\S+)'"
     )
 
     pattern_removed = re.compile(
-        r'^(?P<date>\w{3}\s+\d{1,2})\s+'
-        r'(?P<time>\d{2}:\d{2}:\d{2})\s+'
-        r'\S+\s+systemd-logind[\d+]:\s+'
-        r'(?P<sessiony>Removed\s+session)\s+'
-        r'(?P<session_id>\d{1,3}).'
+        r"^(?P<date>\w{3}\s+\d{1,2})\s+"
+        r"(?P<time>\d{2}:\d{2}:\d{2})\s+"
+        r"\S+\s+systemd-logind\[\d+\]:\s+"
+        r"(?P<session>Removed\s+session)\s+"
+        r"(?P<session_id>[a-zA-Z0-9]+)"
     )
 
+    login_data = []
 
+    # Itererar över login-datan och går genom båda mönstren för att kolla efter logins.
+    # Sedan fyller vi på login_data med varje inlägg som matchar.
+    for line in raw_login_data.splitlines():
+        match1 = pattern_new.search(line)
+        match2 = pattern_removed.search(line)
+
+        if match1:
+            login_data.append(match1.groupdict())
+        
+        elif match2:
+            login_data.append(match2.groupdict())
+
+    
+    return(login_data)
 
 raw_su_data = subprocess.check_output(["journalctl", "_COMM=su", "--since", "yesterday", "--no-pager"], text=True)
 
 
-# print(tabulate(ssh_extraction(), headers="keys"))
-# print()
-# print(tabulate(sudo_extraction(), headers="keys"))
+print("SSH Logins")
+print("----------")
+print(tabulate(ssh_extraction(), headers="keys"))
+print()
+print("Sudo usage")
+print("----------")
+print(tabulate(sudo_extraction(), headers="keys"))
+print()
+print("Login data")
+print("----------")
+print(tabulate(login_data_extraction(), headers="keys"))
+
 
 # print(ssh_examples)
 # print(ssh_success_count)
 # print(ssh_failure_count)
 # print(raw_sudo_data)
-print(raw_login_data)
+# print(raw_login_data)
 # print(raw_su_data)
 
 # Skriva till en txt-fil för framtida undersökningar.
