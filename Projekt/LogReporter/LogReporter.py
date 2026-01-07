@@ -4,23 +4,9 @@ import datetime
 import platform
 import re
 import subprocess
+import sys
 from tabulate import tabulate
 
-def is_it_linux():
-
-    this_system = platform.system()
-
-    if this_system == "Linux":
-        return("linux")
-
-    elif this_system == "Windows":
-        return("windows")
-
-    elif this_system == "Darwin":
-        return("macos")
-
-    else:
-        return("unknown")
 
 def ssh_extraction():
 
@@ -204,7 +190,9 @@ def log_export():
         log_file.write(su_data_extraction())
 
 # Kolla om vi kör Linux
-
+if platform.system() != "Linux":
+    print("Scriptet är skapt för Linux.")
+    sys.exit()
 
 
 # Skriv ut allt till standardoutput
@@ -224,8 +212,7 @@ print()
 print("Su data")
 print("-------")
 print(su_data_extraction())
-print()
-print(is_it_linux())
+
 
 # Firewallloggar?
 
