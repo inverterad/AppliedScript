@@ -1,9 +1,16 @@
 #!/usr/bin/env python3
 
 import datetime
-import subprocess
+import platform
 import re
+import subprocess
 from tabulate import tabulate
+
+def system_ok():
+
+    this_system = platform.system()
+
+    return(this_system)
 
 def ssh_extraction():
 
@@ -210,6 +217,8 @@ print("Su data")
 print("-------")
 # print(tabulate(su_data_extraction(), headers="keys"))
 print(su_data_extraction())
+
+print(system_ok())
 
 # Firewallloggar?
 
