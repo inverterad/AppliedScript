@@ -126,7 +126,6 @@ def login_data_extraction():
             login_data.append(match2.groupdict())
 
     return((tabulate(login_data, headers="keys")))
-    # return(login_data)
 
 def su_data_extraction():
 
@@ -171,51 +170,7 @@ def su_data_extraction():
             match_success_updated["login"] = "success"
             su_data.append(match_success_updated)
 
-    return(su_data)
-
-    # Här tar vi in den råa datan från journalctl med rätt flaggor.
-    raw_su_data = subprocess.check_output(["journalctl", "_COMM=su", "--since", "yesterday", "--no-pager"], text=True)
-
-    # Använder re-modulen för att få in regex så jag kan hitta ett mönster för su misslyckas.
-    pattern_failed = re.compile(
-        r"^(?P<date>\w{3}\s+\d{1,2})\s+"
-        r"(?P<time>\d{2}:\d{2}:\d{2})\s+"
-        r"\S+\s+su\[\d+\]:\s+FAILED\s+SU\s+"
-        r"\(to\s+(?P<to_user>\S+)\)\s+"
-        r"(?P<from_user>\S+)\s+on\s+\S+"
-    )
-
-    # Använder re-modulen för att få in regex så jag kan hitta ett mönster för su lyckas.
-    pattern_success = re.compile(
-        r"^(?P<date>\w{3}\s+\d{1,2})\s+"
-        r"(?P<time>\d{2}:\d{2}:\d{2})\s+"
-        r"\S+\s+su\[\d+\]:\s+"
-        r"\(to\s+(?P<to_user>\S+)\)\s+"
-        r"(?P<from_user>\S+)\s+on\s+\S+"
-    )
-
-    # Initierar en lista för framtida dictionaries med korrekt data.
-    su_data = []
-
-    # Går genom varje rad i den råa datan för att sedan kolla om det stämmer överens med något av mönstrena.
-    for line in raw_su_data.splitlines():
-        match_fail = pattern_failed.search(line)
-        match_success = pattern_success.search(line)
-
-        # Här snyggar jag till dictionaryn och lägger till en login-key med värde "failed" så att man kan se det i the output.
-        if match_fail:
-            match_fail_updated = match_fail.groupdict()
-            match_fail_updated["login"] = "failed"
-            su_data.append(match_fail_updated)
-
-        # Här snyggar jag till dictionaryn och lägger till en login-key med värde "success" så att man kan se det i the output.
-        elif match_success:
-            match_success_updated = match_success.groupdict()
-            match_success_updated["login"] = "success"
-            su_data.append(match_success_updated)
-
     return((tabulate(su_data, headers="keys")))
-    # return(su_data)
 
 def log_export():
     
@@ -243,25 +198,21 @@ def log_export():
 
 print("SSH Logins")
 print("----------")
-# print(tabulate(ssh_extraction(), headers="keys"))
 print(ssh_extraction())
 print()
 print("Sudo usage")
 print("----------")
-# print(tabulate(sudo_extraction(), headers="keys"))
 print(sudo_extraction())
 print()
 print("Login data")
 print("----------")
-print(tabulate(login_data_extraction(), headers="keys"))
+print(login_data_extraction())
 print()
 print("Su data")
 print("-------")
-print(tabulate(su_data_extraction(), headers="keys"))
-
-# print(ssh_examples)
-# print(ssh_success_count)
-# print(ssh_failure_count)
+print(su_data_extraction())
+print()
+print(system_ok())
 
 # Firewallloggar?
 
