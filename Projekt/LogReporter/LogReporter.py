@@ -122,7 +122,29 @@ def login_data_extraction():
     
     return(login_data)
 
-raw_su_data = subprocess.check_output(["journalctl", "_COMM=su", "--since", "yesterday", "--no-pager"], text=True)
+def su_data_extraction():
+
+    raw_su_data = subprocess.check_output(["journalctl", "_COMM=su", "--since", "yesterday", "--no-pager"], text=True)
+
+    # Använder re-modulen för att få in regex så jag kan hitta mönster.
+    pattern_failed = re.compile(
+        r"^(?P<date>\w{3}\s+\d{1,2})\s+"
+        r"(?P<time>\d{2}:\d{2}:\d{2})\s+"
+        r"\S+\s+su\[\d+\]:\s+"
+        r"(?P<failsuccess>FAILED\s+SU)\s+"
+        r"\(to\s+(?P<to_user>\S+)\)\s+"
+        r"(?P<from_user>\S+)\s+on\s+\S+"
+    )
+
+    su_data = []
+
+    for line in raw_su_data.splitlines():
+        match_fail = pattern_failed.search(line)
+
+        if match_fail:
+            su_data.append(match_fail.groupdict())
+
+    return(su_data)
 
 
 print("SSH Logins")
@@ -136,7 +158,10 @@ print()
 print("Login data")
 print("----------")
 print(tabulate(login_data_extraction(), headers="keys"))
-
+print()
+print("Su data")
+print("-------")
+print(tabulate(su_data_extraction(), headers="keys"))
 
 # print(ssh_examples)
 # print(ssh_success_count)
