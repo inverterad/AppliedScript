@@ -189,11 +189,10 @@ def log_export():
         log_file.write("----------\n")
         log_file.write(su_data_extraction())
 
-# Kolla om vi kör Linux
+# Kolla om vi kör Linux, om inte så avslutar vi och meddelar användaren.
 if platform.system() != "Linux":
-    print("Scriptet är skapt för Linux.")
+    print("Scriptet fungerar inte på andra operativsystem än Linux, tyvärr. Avslutar.")
     sys.exit()
-
 
 # Skriv ut allt till standardoutput
 
