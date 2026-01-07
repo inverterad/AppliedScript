@@ -41,8 +41,6 @@ def ssh_extraction():
     return(tabulate(ssh_parsed, headers="keys"))
     # return(ssh_parsed)
 
-###
-
 def sudo_extraction():
 
     # Använder subprocess för att extrahera sudo-data sedan igår.
@@ -80,8 +78,6 @@ def sudo_extraction():
     else:
         # return(sudo_parsed)
         return(tabulate(sudo_parsed, headers="keys"))
-
-###
 
 def login_data_extraction():
 
@@ -171,6 +167,26 @@ def su_data_extraction():
     return((tabulate(su_data, headers="keys")))
     # return(su_data)
 
+def log_export():
+    
+    # Datum och tid för framtida loggfilens namn.
+    current_time = datetime.datetime.now()
+    current_time_str = current_time.strftime("%Y-%m-%d_%H:%M")
+    logfile_name = str(current_time_str) + "_log.txt"
+
+    with open(logfile_name, "w") as log_file:
+        log_file.write("SSH Logins\n")
+        log_file.write("----------\n")
+        log_file.write(ssh_extraction())
+        log_file.write("Sudo Usage\n")
+        log_file.write("----------\n")
+        log_file.write(sudo_extraction())
+        log_file.write("Login Data\n")
+        log_file.write("----------\n")
+        log_file.write(login_data_extraction())
+        log_file.write("Su Data\n")
+        log_file.write("----------\n")
+        log_file.write(su_data_extraction())
 
 
 # Skriv ut allt till standardoutput
@@ -195,38 +211,6 @@ print("-------")
 # print(tabulate(su_data_extraction(), headers="keys"))
 print(su_data_extraction())
 
-# print(ssh_examples)
-# print(ssh_success_count)
-# print(ssh_failure_count)
-
 # Firewallloggar?
 
 # Nätverksloggar?
-
-# Skriva till en txt-fil för framtida undersökningar.
-
-# with open("dagens.txt", "w") as log_file:
-#    log_file.write(ssh_examples)
-
-def log_export():
-    
-    # Datum och tid för framtida loggfilens namn.
-    current_time = datetime.datetime.now()
-    current_time_str = current_time.strftime("%Y-%m-%d_%H:%M")
-    logfile_name = str(current_time_str) + "_log.txt"
-
-    with open(logfile_name, "w") as log_file:
-        log_file.write("SSH Logins\n")
-        log_file.write("----------\n")
-        log_file.write(ssh_extraction())
-        log_file.write("Sudo Usage\n")
-        log_file.write("----------\n")
-        log_file.write(sudo_extraction())
-        log_file.write("Login Data\n")
-        log_file.write("----------\n")
-        log_file.write(login_data_extraction())
-        log_file.write("Su Data\n")
-        log_file.write("----------\n")
-        log_file.write(su_data_extraction())
-
-
