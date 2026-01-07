@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 
 import datetime
+import os
 import platform
 import re
 import subprocess
 import sys
 from tabulate import tabulate
-
 
 def ssh_extraction():
 
@@ -194,6 +194,11 @@ if platform.system() != "Linux":
     print("Scriptet fungerar inte på andra operativsystem än Linux, tyvärr. Avslutar.")
     sys.exit()
 
+# Kolla så att det använts som sudo
+if os.geteuid() != 0:
+    print("Detta script kräver sudo-behörighet.")
+    sys.exit()
+
 # Skriv ut allt till standardoutput
 
 print("SSH Logins")
@@ -211,7 +216,6 @@ print()
 print("Su data")
 print("-------")
 print(su_data_extraction())
-
 
 # Firewallloggar?
 
