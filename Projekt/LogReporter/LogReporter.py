@@ -130,8 +130,15 @@ def su_data_extraction():
     pattern_failed = re.compile(
         r"^(?P<date>\w{3}\s+\d{1,2})\s+"
         r"(?P<time>\d{2}:\d{2}:\d{2})\s+"
+        r"\S+\s+su\[\d+\]:\s+FAILED\s+SU\s+"
+        r"\(to\s+(?P<to_user>\S+)\)\s+"
+        r"(?P<from_user>\S+)\s+on\s+\S+"
+    )
+
+    pattern_success = re.compile(
+        r"^(?P<date>\w{3}\s+\d{1,2})\s+"
+        r"(?P<time>\d{2}:\d{2}:\d{2})\s+"
         r"\S+\s+su\[\d+\]:\s+"
-        r"(?P<failsuccess>FAILED\s+SU)\s+"
         r"\(to\s+(?P<to_user>\S+)\)\s+"
         r"(?P<from_user>\S+)\s+on\s+\S+"
     )
@@ -140,9 +147,17 @@ def su_data_extraction():
 
     for line in raw_su_data.splitlines():
         match_fail = pattern_failed.search(line)
+        match_success = pattern_success.search(line)
 
         if match_fail:
-            su_data.append(match_fail.groupdict())
+            match_fail_updated = match_fail.groupdict()
+            match_fail_updated["login"] = "Failed"
+            su_data.append(match_fail_updated)
+
+        elif match_success:
+            match_success_updated = match_success.groupdict()
+            match_success_updated["login"] = "Success"
+            su_data.append(match_success_updated)
 
     return(su_data)
 
@@ -159,6 +174,9 @@ print("Login data")
 print("----------")
 print(tabulate(login_data_extraction(), headers="keys"))
 print()
+
+# su_data_headers = ["date", "time", "from_user", "to_user", "login"]
+
 print("Su data")
 print("-------")
 print(tabulate(su_data_extraction(), headers="keys"))
@@ -166,9 +184,6 @@ print(tabulate(su_data_extraction(), headers="keys"))
 # print(ssh_examples)
 # print(ssh_success_count)
 # print(ssh_failure_count)
-# print(raw_sudo_data)
-# print(raw_login_data)
-# print(raw_su_data)
 
 # Firewallloggar?
 
