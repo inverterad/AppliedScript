@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import datetime
 import subprocess
 import re
 from tabulate import tabulate
@@ -37,7 +38,8 @@ def ssh_extraction():
         if match:
             ssh_parsed.append(match.groupdict())
 
-    return(ssh_parsed)
+    return(tabulate(ssh_parsed, headers="keys"))
+    # return(ssh_parsed)
 
 ###
 
@@ -76,7 +78,8 @@ def sudo_extraction():
     if len(sudo_parsed) == 0:
         return("empty")
     else:
-        return(sudo_parsed)
+        # return(sudo_parsed)
+        return(tabulate(sudo_parsed, headers="keys"))
 
 ###
 
@@ -119,8 +122,8 @@ def login_data_extraction():
         elif match2:
             login_data.append(match2.groupdict())
 
-    
-    return(login_data)
+    return((tabulate(login_data, headers="keys")))
+    # return(login_data)
 
 def su_data_extraction():
 
@@ -165,24 +168,32 @@ def su_data_extraction():
             match_success_updated["login"] = "success"
             su_data.append(match_success_updated)
 
-    return(su_data)
+    return((tabulate(su_data, headers="keys")))
+    # return(su_data)
 
+
+
+# Skriv ut allt till standardoutput
 
 print("SSH Logins")
 print("----------")
-print(tabulate(ssh_extraction(), headers="keys"))
+# print(tabulate(ssh_extraction(), headers="keys"))
+print(ssh_extraction())
 print()
 print("Sudo usage")
 print("----------")
-print(tabulate(sudo_extraction(), headers="keys"))
+# print(tabulate(sudo_extraction(), headers="keys"))
+print(sudo_extraction())
 print()
 print("Login data")
 print("----------")
-print(tabulate(login_data_extraction(), headers="keys"))
+# print(tabulate(login_data_extraction(), headers="keys"))
+print(login_data_extraction())
 print()
 print("Su data")
 print("-------")
-print(tabulate(su_data_extraction(), headers="keys"))
+# print(tabulate(su_data_extraction(), headers="keys"))
+print(su_data_extraction())
 
 # print(ssh_examples)
 # print(ssh_success_count)
@@ -198,15 +209,24 @@ print(tabulate(su_data_extraction(), headers="keys"))
 #    log_file.write(ssh_examples)
 
 def log_export():
+    
+    # Datum och tid för framtida loggfilens namn.
     current_time = datetime.datetime.now()
     current_time_str = current_time.strftime("%Y-%m-%d_%H:%M")
     logfile_name = str(current_time_str) + "_log.txt"
 
-    ssh_data = tabulate(ssh_extraction(), headers="keys")
-
-    print(logfile_name)
     with open(logfile_name, "w") as log_file:
-        log_file.write("SSH Logins")
-        log_file.write("----------")
-        log_file.write(ssh_data)
+        log_file.write("SSH Logins\n")
+        log_file.write("----------\n")
+        log_file.write(ssh_extraction())
+        log_file.write("Sudo Usage\n")
+        log_file.write("----------\n")
+        log_file.write(sudo_extraction())
+        log_file.write("Login Data\n")
+        log_file.write("----------\n")
+        log_file.write(login_data_extraction())
+        log_file.write("Su Data\n")
+        log_file.write("----------\n")
+        log_file.write(su_data_extraction())
+
 
