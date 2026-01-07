@@ -6,11 +6,21 @@ import re
 import subprocess
 from tabulate import tabulate
 
-def system_ok():
+def is_it_linux():
 
     this_system = platform.system()
 
-    return(this_system)
+    if this_system == "Linux":
+        return("linux")
+
+    elif this_system == "Windows":
+        return("windows")
+
+    elif this_system == "Darwin":
+        return("macos")
+
+    else:
+        return("unknown")
 
 def ssh_extraction():
 
@@ -193,6 +203,9 @@ def log_export():
         log_file.write("----------\n")
         log_file.write(su_data_extraction())
 
+# Kolla om vi kör Linux
+
+
 
 # Skriv ut allt till standardoutput
 
@@ -212,7 +225,7 @@ print("Su data")
 print("-------")
 print(su_data_extraction())
 print()
-print(system_ok())
+print(is_it_linux())
 
 # Firewallloggar?
 
