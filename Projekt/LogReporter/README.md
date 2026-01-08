@@ -1,4 +1,6 @@
 # LogReporter
+_Version 0.9_
+
 Python-script som används för att undersöka diverse loggfiler på ett Linux-system med syfte att informera om någon har loggat in på systemet senaste dygnet och då ge information om när och hur.
 
 Scriptet ska fungera på alla Linuxbaserade system som använder sig av journalctl.
@@ -11,18 +13,19 @@ Scriptet ska fungera på alla Linuxbaserade system som använder sig av journalc
 ## Beroenden
 Scriptet kräver externa Python-bibliotek som listas i `requirements.txt`.
 
-Notera att beroenden installeras för aktuell Python-miljö. Om scriptet inte hittar tabulate vid körning med sudo, använd:
+Notera att beroenden installeras för aktuell Python-miljö. Rekommendation är att installera beroenden och starta upp i en [venv](https://docs.python.org/3/library/venv.html).
 
-    sudo -H python3 -m pip install -r requirements.txt
-
-
-
-## Instruktion för användning
+## Rekommenderad instruktion för installation
 
     git clone https://github.com/inverterad/AppliedScript.git
     cd AppliedScript/Projekt/LogReporter
-    chmod +x LogReporter.py
+    python3 -m venv venv
+    source venv/bin/activate
     python3 -m pip install -r requirements.txt
+    chmod +x LogReporter.py
+
+## Användning
+
     sudo ./LogReporter.py
 
 ## Flaggor
@@ -32,12 +35,12 @@ Notera att beroenden installeras för aktuell Python-miljö. Om scriptet inte hi
 ## Funktion
 Samlar in information via journalctl om:
 
-    SSH logins
-    Sudo-användning
-    Login-data
-    Kommandot su
+- SSH logins
+- Sudo-användning
+- Login-data
+- Kommandot su
 
-Sedan omvandlar vi loggarna till ett mer läsbart format och visar upp i standard output och i samma veva skapas en loggfil i katalogen:
+Loggarna formateras till ett mer läsbart format och visar upp i standard output. Det skapas även en loggfil i katalogen:
 
     LogReporter/log/
 

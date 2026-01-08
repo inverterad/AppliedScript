@@ -224,7 +224,7 @@ def argument_flaggor():
         sys.exit()
     
     if args.version:
-        print("Version 1.0")
+        print("Version 0.9")
         sys.exit()
 
 # Kolla om vi kör Linux, om inte så avslutar vi och meddelar användaren.
