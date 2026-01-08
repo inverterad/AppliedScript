@@ -4,16 +4,25 @@ Python-script som används för att undersöka diverse loggfiler på ett Linux-s
 Scriptet ska fungera på alla Linuxbaserade system som använder sig av journalctl.
 
 ## Systemkrav
-Scriptet kontrollerar automatiskt att du har sudo-rättighet då detta är ett krav.
+- Linux
+- Python 3.10+
+- sudo-rättigheter (kontrolleras automatiskt av scriptet)
 
-Biblioteket tabulate är ett krav för att scriptet ska fungera.
+## Beroenden
+Scriptet kräver externa Python-bibliotek som listas i `requirements.txt`.
+
+Notera att beroenden installeras för aktuell Python-miljö. Om scriptet inte hittar tabulate vid körning med sudo, använd:
+
+    sudo -H python3 -m pip install -r requirements.txt
+
+
 
 ## Instruktion för användning
 
     git clone https://github.com/inverterad/AppliedScript.git
     cd AppliedScript/Projekt/LogReporter
     chmod +x LogReporter.py
-    pip install tabulate
+    python3 -m pip install -r requirements.txt
     sudo ./LogReporter.py
 
 ## Flaggor
