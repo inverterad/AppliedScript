@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import argparse
 import datetime
 import os
 import platform
@@ -209,15 +210,34 @@ def log_export():
         log_file.write("----------\n")
         log_file.write(su_data_extraction())
 
+def argument_flaggor():
+    
+    flaggor = argparse.ArgumentParser(add_help=False)
+    flaggor.add_argument("-h", "--help", action="store_true", help="Visa hjälptext")
+    flaggor.add_argument("-v", "--version", action="store_true", help="Visa versionnummer")
+    args = flaggor.parse_args()
+
+    if args.help:
+        print("Användning: sudo ./LogReporter [-h] [-v]\n")
+        print("Undersöker SSHloggar, sudoanvändning, logindata och suanvändning och visar resultatet i ett läsbart format i standard output.")
+        print("Resultatet skrivs även till en txt-fil i log-katalogen.")
+        sys.exit()
+    
+    if args.version:
+        print("Version 1.0")
+        sys.exit()
+
 # Kolla om vi kör Linux, om inte så avslutar vi och meddelar användaren.
 if platform.system() != "Linux":
     print("Scriptet fungerar inte på andra operativsystem än Linux, tyvärr. Avslutar.")
     sys.exit()
 
 # Kolla så att scriptet körs som sudo
-if os.geteuid() != 0:
-    print("Detta script kräver sudo-behörighet.")
-    sys.exit()
+# if os.geteuid() != 0:
+    # print("Detta script kräver sudo-behörighet.")
+    # sys.exit()
+
+argument_flaggor()
 
 # Skriv ut allt till standardoutput
 print("SSH Logins")
