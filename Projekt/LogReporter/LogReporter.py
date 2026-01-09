@@ -195,20 +195,27 @@ def log_export():
     folder = Path("log")
     folder.mkdir(parents=True, exist_ok=True)
 
+    # Variabel för hela vägen till loggfilen.
+    logpath = folder / logfile_name
+
     # Här nedan skriver vi samma information som skrivs ut i terminalen men till en loggfil.
-    with open(folder / logfile_name, "w") as log_file:
+    with open(logpath, "w") as log_file:
         log_file.write("\nSSH Logins\n")
         log_file.write("----------\n")
         log_file.write(ssh_extraction())
-        log_file.write("\nSudo Usage\n")
+        log_file.write("\n\nSudo Usage\n")
         log_file.write("----------\n")
         log_file.write(sudo_extraction())
-        log_file.write("\nLogin Data\n")
+        log_file.write("\n\nLogin Data\n")
         log_file.write("----------\n")
         log_file.write(login_data_extraction())
-        log_file.write("\nSu Data\n")
+        log_file.write("\n\nSu Data\n")
         log_file.write("----------\n")
         log_file.write(su_data_extraction())
+
+    log_message = f"Loggfil skapad i {logpath}"
+
+    return(log_message)
 
 def argument_flaggor():
     
@@ -224,7 +231,7 @@ def argument_flaggor():
         sys.exit()
     
     if args.version:
-        print("Version 0.9")
+        print("Version 0.91")
         sys.exit()
 
 # Kolla om vi kör Linux, om inte så avslutar vi och meddelar användaren.
@@ -255,8 +262,5 @@ print()
 print("Su data")
 print("-------")
 print(su_data_extraction())
-# log_export()
-
-# Firewallloggar?
-
-# Nätverksloggar?
+print()
+print(log_export())

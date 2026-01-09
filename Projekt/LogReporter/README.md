@@ -1,5 +1,5 @@
 # LogReporter
-_Version 0.9_
+_Version 0.91_
 
 Python-script som används för att undersöka diverse loggfiler på ett Linux-system med syfte att informera om någon har loggat in på systemet senaste dygnet och då ge information om när och hur.
 
@@ -50,3 +50,13 @@ WIP
 ## Flödesschema
 
 [Temporär tidig version](Projekt_Loggläsningsrapport_Flowchart.pdf)
+
+## Roadmap
+
+| Feature | Kommentar |
+|-|-|
+| Nätverkslog | Kort sikt
+| Brandväggslog | Kort sikt
+| Logga rå data | Kort sikt
+| Kryptera eller ta bort rättigheter för loggfiler | Lång sikt
+| Göra en version för Windows | Lång sikt

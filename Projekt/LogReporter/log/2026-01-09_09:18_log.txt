@@ -1,0 +1,52 @@
+
+SSH Logins
+----------
+date    time      password           user               ip
+------  --------  -----------------  -----------------  ---------
+Dec 15  13:22:43  Accepted password  kali               127.0.0.1
+Dec 16  13:46:06  Failed password    kali               127.0.0.1
+Dec 16  13:46:11  Failed password    kali               127.0.0.1
+Dec 16  13:46:13  Accepted password  kali               127.0.0.1
+Dec 16  14:23:16  Failed password    invalid user test  127.0.0.1
+Dec 16  14:23:25  Failed password    invalid user test  127.0.0.1
+
+Sudo Usage
+----------
+date    time      working_directory                                  user    command
+------  --------  -------------------------------------------------  ------  -----------------------------------------------
+Jan 08  07:54:35  /home/kali/Code/AppliedScript/Projekt/LogReporter  root    ./LogReporter.py
+Jan 08  09:06:26  /home/kali/Code/AppliedScript/Projekt/LogReporter  root    ./LogReporter.py
+Jan 08  09:34:33  /home/kali/Code/AppliedScript/Projekt/LogReporter  root    /usr/bin/rm -rf log
+Jan 08  10:58:03  /home/kali/Code/AppliedScript/Projekt/LogReporter  root    /usr/bin/python 3.10 LogReporter.py
+Jan 08  10:58:21  /home/kali/Code/AppliedScript/Projekt/LogReporter  root    /usr/bin/python 3.11 LogReporter.py
+Jan 08  10:59:20  /home/kali/Code/AppliedScript/Projekt/LogReporter  root    /usr/bin/apt install python3.10 python3.10-venv
+Jan 08  11:11:50  /home/kali/Code/AppliedScript/Projekt/LogReporter  root    ./LogReporter.py
+Jan 08  11:57:34  /home/kali/Code/AppliedScript/Projekt/LogReporter  root    ./LogReporter.py
+Jan 08  11:57:55  /home/kali/Code/AppliedScript/Projekt/LogReporter  root    ./LogReporter.py
+Jan 08  12:00:35  /home/kali/Code/AppliedScript/Projekt/LogReporter  root    ./LogReporter.py
+Jan 08  12:00:39  /home/kali/Code/AppliedScript/Projekt/LogReporter  root    ./LogReporter.py --help
+Jan 08  12:00:55  /home/kali/Code/AppliedScript/Projekt/LogReporter  root    ./LogReporter.py -help
+Jan 08  12:00:58  /home/kali/Code/AppliedScript/Projekt/LogReporter  root    ./LogReporter.py -h
+
+Login Data
+----------
+date    time      session          session_id    user     class          interface
+------  --------  ---------------  ------------  -------  -------------  -----------
+Jan 08  09:53:14  New session      3             kali     manager        unspecified
+Jan 08  09:53:14  New session      2             kali     user           x11
+Jan 08  10:04:55  New session      3             kali     manager        unspecified
+Jan 08  10:04:55  New session      2             kali     user           x11
+Jan 08  10:16:16  New session      3             kali     manager        unspecified
+Jan 08  10:16:16  New session      2             kali     user           x11
+Jan 08  13:55:17  Removed session  2
+Jan 08  13:55:17  Removed session  3
+Jan 09  08:56:36  New session      c1            lightdm  greeter        x11
+Jan 09  08:56:36  New session      1             lightdm  manager-early  unspecified
+Jan 09  08:56:44  Removed session  c1
+Jan 09  08:56:45  New session      2             kali     user           x11
+Jan 09  08:56:45  New session      3             kali     manager        unspecified
+Jan 09  08:56:55  Removed session  1
+
+Su Data
+----------
+empty
