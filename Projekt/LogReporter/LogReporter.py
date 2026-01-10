@@ -13,7 +13,7 @@ from tabulate import tabulate
 def ssh_extraction():
 
     # Läs in SSH-logg med hjälp av biblioteket subprocess, text=True levererar all data i en lång sträng. 
-    raw_ssh_data = subprocess.check_output(["journalctl", "-u", "ssh.service", "--no-pager"], text=True)
+    raw_ssh_data = subprocess.check_output(["journalctl", "-u", "ssh.service", "--since", "yesterday", "--no-pager"], text=True)
 
     # Använder re-modulen för att få in regex så jag kan hitta mönster.
     pattern = re.compile(
@@ -31,10 +31,8 @@ def ssh_extraction():
     # Loop för att gå genom varje logg-inlägg, eftersom det är sparat som en enda strängen så delar vi upp strängen här också.
     for line in raw_ssh_data.splitlines():
         if "Accepted password" in line:
-            # if len(ssh_examples) < 5:
             ssh_examples.append(line.strip())
         elif "Failed password" in line:
-            # if len(ssh_examples) < 5:
             ssh_examples.append(line.strip())
 
     # Fyll på dictionaries med datan för varje incident.

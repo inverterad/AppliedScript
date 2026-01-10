@@ -45,11 +45,12 @@ Loggarna formateras till ett mer läsbart format och visar upp i standard output
     LogReporter/log/
 
 ## Screenshot / Video
-WIP
+Exempel på då scriptet körts
+![Screenshot](Screenshot_2026-01-10_04-27-49.png)
 
 ## Flödesschema
 
-[Temporär tidig version](Projekt_Loggläsningsrapport_Flowchart.pdf)
+![Flowchart](Projekt_Loggläsningsrapport-Flowchart_v3.png)
 
 ## Roadmap
 
