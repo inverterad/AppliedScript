@@ -229,7 +229,7 @@ def argument_flaggor():
         sys.exit()
     
     if args.version:
-        print("Version 0.91")
+        print("Version 0.92")
         sys.exit()
 
 # Kolla om vi kör Linux, om inte så avslutar vi och meddelar användaren.
@@ -238,9 +238,9 @@ if platform.system() != "Linux":
     sys.exit()
 
 # Kolla så att scriptet körs som sudo
-# if os.geteuid() != 0:
-    # print("Detta script kräver sudo-behörighet.")
-    # sys.exit()
+if os.geteuid() != 0:
+    print("Detta script kräver sudo-behörighet.")
+    sys.exit()
 
 argument_flaggor()
 
