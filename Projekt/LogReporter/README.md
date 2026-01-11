@@ -57,7 +57,8 @@ Exempel på då scriptet körts
 | Feature | Kommentar |
 |-|-|
 | Nätverkslog | Kort sikt
-| Brandväggslog | Kort sikt
+| Flagga för insamling av data över längre tid | Kort sikt
+| Byta till modulen _logging_ istället för egentillverkad | Kort sikt
 | Logga rå data | Kort sikt
 | Kryptera eller ta bort rättigheter för loggfiler | Lång sikt
 | Göra en version för Windows | Lång sikt
