@@ -231,11 +231,11 @@ def argument_flaggor():
     if args.help:
         print("Användning: sudo ./LogReporter [-h] [-v]\n")
         print("Undersöker SSHloggar, sudoanvändning, logindata och suanvändning och visar resultatet i ett läsbart format i standard output.")
-        print("Resultatet skrivs även till en txt-fil i log-katalogen.")
+        print("Resultatet skrivs även till en txt-fil som sparas i log-katalogen.")
         sys.exit()
     
     if args.version:
-        print("Version 0.92")
+        print("Version 0.93")
         sys.exit()
 
 # Kolla om vi kör Linux, om inte så avslutar vi och meddelar användaren.

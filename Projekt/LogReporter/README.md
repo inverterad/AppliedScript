@@ -1,5 +1,5 @@
 # LogReporter
-_Version 0.92_
+_Version 0.93_
 
 Python-script som används för att undersöka diverse loggfiler på ett Linux-system med syfte att informera om någon har loggat in på systemet senaste dygnet och då ge information om när och hur.
 
