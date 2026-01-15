@@ -3,6 +3,8 @@ _Version 0.92_
 
 Python-script som används för att undersöka diverse loggfiler på ett Linux-system med syfte att informera om någon har loggat in på systemet senaste dygnet och då ge information om när och hur.
 
+Tanken är att använda scriptet när man sätter sig vid sin arbetsstation på morgonen för att se så inget misstänksamt har hänt medans man varit borta.
+
 Scriptet ska fungera på alla Linuxbaserade system som använder sig av journalctl.
 
 ## Systemkrav
@@ -26,7 +28,7 @@ Notera att beroenden installeras för aktuell Python-miljö. Rekommendation är 
 
 ## Användning
 
-    sudo ./LogReporter.py
+    sudo -E ./LogReporter.py
 
 ## Flaggor
 - -h, --help : Visar hjälpsida.
