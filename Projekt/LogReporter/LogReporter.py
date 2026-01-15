@@ -8,7 +8,13 @@ import re
 import subprocess
 import sys
 from pathlib import Path
-from tabulate import tabulate
+
+# Hanterar avsaknaden av modulen tabulate på ett kontrollerat sätt.
+try:
+    from tabulate import tabulate
+except ImportError:
+    print("Det här scriptet kräver modulen tabulate, se installationsinstruktionerna på GitHub.")
+    sys.exit()
 
 def ssh_extraction():
 
@@ -234,12 +240,12 @@ def argument_flaggor():
 
 # Kolla om vi kör Linux, om inte så avslutar vi och meddelar användaren.
 if platform.system() != "Linux":
-    print("Scriptet fungerar inte på andra operativsystem än Linux, tyvärr. Avslutar.")
+    print("Det här scriptet kräver Linux. Avslutar.")
     sys.exit()
 
 # Kolla så att scriptet körs som sudo
 if os.geteuid() != 0:
-    print("Detta script kräver sudo-behörighet.")
+    print("Det här scriptet kräver sudo-behörighet.")
     sys.exit()
 
 argument_flaggor()
